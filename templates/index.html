@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/static/images/Screenshot 2024-10-21 112431.png">
+    <title>SPS</title>
+    <link rel="stylesheet" href="/static/index.css">
+
+    <script>
+        function resetForm() {
+            document.getElementById("predictionForm").reset();
+            document.getElementById("age").value = "0";
+            document.getElementsByName("gender")[0].checked = true;
+            document.getElementsByName("hypertension")[0].checked = true;
+            document.getElementsByName("heart_disease")[0].checked = true;
+            document.getElementById("marital_status").value = "0";
+            document.getElementById("work_type").value = "0";
+            document.getElementsByName("residence_type")[0].checked = true;
+            document.getElementById("glucose").value = "0";
+            document.getElementById("bmi").value = "0";
+            document.getElementsByName("smoking_status")[0].checked = true;
+            document.getElementsByName("alcohol_intake")[0].checked = true;
+            document.getElementById("physical_activity").value = "0";
+            document.getElementsByName("stroke_history")[0].checked = true;
+            document.getElementsByName("family_history_stroke")[0].checked = true;
+            document.getElementById("dietary_habits").value = "0";
+            document.getElementById("stress_level").value = "0";
+            document.getElementById("blood_pressure").value = "0";
+            document.getElementById("prediction-result").innerHTML = "<h2>Prediction Result: N/A</h2>";
+            document.getElementById("hdl").value = "0";
+            document.getElementById("ldl").value = "0";
+        }
+    </script>
+
+</head>
+<body>
+    <header class="top-bar">
+        <div class="title-container">
+            <img src="/static/images/Screenshot 2024-10-21 112431.png" alt="Logo" class="logo"> 
+            <h1>Stroke Prediction System</h1>
+        </div>
+    </header>
+
+    <div class="form-container">
+        
+        <form id="predictionForm" action="/" method="POST">
+            <!-- Age -->
+            <div class="form-group">
+                <label for="age">Age</label>
+                <select id="age" name="age" required>
+                    <option value="0" {% if age == '0' %}selected{% endif %}>Child (Younger than 13 years)</option>
+                    <option value="1" {% if age == '1' %}selected{% endif %}>Adolescent (13 to 19 years)</option>
+                    <option value="2" {% if age == '2' %}selected{% endif %}>Young Adult (20 to 35 years)</option>
+                    <option value="3" {% if age == '3' %}selected{% endif %}>Middle-Aged Adult (36 to 50 years)</option>
+                    <option value="4" {% if age == '4' %}selected{% endif %}>Older Adult (51 to 65 years)</option>
+                    <option value="5" {% if age == '5' %}selected{% endif %}>Senior (Older than 65 years)</option>
+                </select>
+            </div>
+
+            <!-- Gender -->
+            <div class="form-group">
+                <label>Gender</label>
+                <div class="radio-group">
+                    <label>Female <input type="radio" name="gender" value="0" {% if gender == '0' %}checked{% endif %}></label>
+                    <label>Male <input type="radio" name="gender" value="1" checked {% if gender == '1' %}checked{% endif %}></label>
+                </div>
+            </div>
+        
+            <!-- Hypertension -->
+            <div class="form-group">
+                <label>Hypertension</label>
+                <div class="radio-group">
+                    <label>No <input type="radio" name="hypertension" value="0" {% if hypertension == '0' %}checked{% endif %}></label>
+                    <label>Yes <input type="radio" name="hypertension" value="1" checked {% if hypertension == '1' %}checked{% endif %}></label>
+                </div>
+            </div>
+        
+            <!-- Heart Disease -->
+            <div class="form-group">
+                <label>Heart Disease</label>
+                <div class="radio-group">
+                    <label>No <input type="radio" name="heart_disease" value="0" {% if heart_disease == '0' %}checked{% endif %}></label>
+                    <label>Yes <input type="radio" name="heart_disease" value="1" checked {% if heart_disease == '1' %}checked{% endif %}></label>
+                </div>
+            </div>
+        
+            <!-- Marital Status -->
+            <div class="form-group">
+                <label for="marital_status">Marital Status</label>
+                <select id="marital_status" name="marital_status" required>
+                    <option value="0" selected {%if marital_status == '0' %}selected{% endif %}>Divorced</option>
+                    <option value="1" {%if marital_status == '1' %}selected{% endif %}>Married</option>
+                    <option value="2" {%if marital_status == '2' %}selected{% endif %}>Single</option>
+                </select>
+            </div>
+        
+            <!-- Work Type -->
+            <div class="form-group">
+                <label for="work_type">Work Type</label>
+                <select id="work_type" name="work_type" required>
+                    <option value="0" selected {% if work_type == '0' %}selected{% endif %}>Government</option>
+                    <option value="1" {% if work_type == '1' %}selected{% endif %}>Private</option>
+                    <option value="2" {% if work_type == '2' %}selected{% endif %}>Self-employed</option>
+                    <option value="3" {% if work_type == '3' %}selected{% endif %}>Child</option>
+                    <option value="4" {% if work_type == '4' %}selected{% endif %}>Never worked</option>
+                </select>
+            </div>
+        
+            <!-- Residence Type -->
+            <div class="form-group">
+                <label>Residence Type</label>
+                <div class="radio-group">
+                    <label>Urban <input type="radio" name="residence_type" value="0" checked {% if residence_type == '0' %}checked{% endif %}></label>
+                    <label>Rural <input type="radio" name="residence_type" value="1" {% if residence_type == '1' %}checked{% endif %}></label>
+                </div>
+            </div>
+        
+            <!-- Average Glucose Level -->
+            <div class="form-group">
+                <label for="glucose">Average Glucose Level</label>
+                <input type="float" id="glucose" name="glucose" value="{{ glucose | default(0)}}" required>
+            </div>
+        
+            <!-- BMI -->
+            <div class="form-group">
+                <label for="bmi">BMI</label>
+                <input type="float" id="bmi" name="bmi" step="0.1" value="{{ bmi | default(0)}}" required>
+            </div>
+        
+            <!-- Smoking Status -->
+            <div class="form-group">
+                <label>Smoking Status</label>
+                <div class="radio-group">
+                    <label>Never <input type="radio" name="smoking_status" value="0" checked {% if smoking_status == '0' %}checked{% endif %}></label>
+                    <label>Formerly <input type="radio" name="smoking_status" value="1" {% if smoking_status == '1' %}checked{% endif %}></label>
+                    <label>Smokes <input type="radio" name="smoking_status" value="2" {% if smoking_status == '2' %}checked{% endif %}></label>
+                </div>
+            </div>
+        
+            <!-- Alcohol Intake -->
+            <div class="form-group">
+                <label>Alcohol Intake</label>
+                <div class="radio-group">
+                    <label>Never <input type="radio" name="alcohol_intake" value="0" checked {% if alcohol_intake == '0' %}checked{% endif %} required></label>
+                    <label>Rarely <input type="radio" name="alcohol_intake" value="1" {% if alcohol_intake == '1' %}checked{% endif %} required></label>
+                    <label>Social Drinker <input type="radio" name="alcohol_intake" value="2" {% if alcohol_intake == '2' %}checked{% endif %} required></label>
+                    <label>Frequent Drinker <input type="radio" name="alcohol_intake" value="3" {% if alcohol_intake == '3' %}checked{% endif %} required></label>
+                </div>  
+            </div>
+        
+            <!-- Physical Activity -->
+            <div class="form-group">   
+                <label for="physical_activity">Physical Activity</label>
+                <select id="physical_activity" name="physical_activity" required>
+                    <option value="0" selected {%if physical_activity == '0' %}selected{% endif %}>Low</option>
+                    <option value="1" {%if physical_activity == '1' %}selected{% endif %}>Moderate</option>
+                    <option value="2" {%if physical_activity == '2' %}selected{% endif %}>High</option>
+                </select>
+            </div>
+        
+            <!-- Stroke History -->
+            <div class="form-group">
+                <label>Stroke History</label>
+                <div class="radio-group">
+                    <label>No <input type="radio" name="stroke_history" value="0" checked {% if stroke_history == '0' %}checked{% endif %}></label>
+                    <label>Yes <input type="radio" name="stroke_history" value="1" {% if stroke_history == '1' %}checked{% endif %}></label>
+                </div>
+            </div>
+        
+            <!-- Family History of Stroke -->
+            <div class="form-group">
+                <label>Family History of Stroke</label>
+                <div class="radio-group">
+                    <label>No <input type="radio" name="family_history_stroke" value="0" checked {% if family_history_stroke == '0' %}checked{% endif %}></label>
+                    <label>Yes <input type="radio" name="family_history_stroke" value="1" {% if family_history_stroke == '1' %}checked{% endif %}></label>
+                </div>
+            </div>
+
+            <!-- Dietary Habits -->
+            <div class="form-group">
+                <label for="dietary_habits">Dietary Habits</label>
+                <select id="dietary_habits" name="dietary_habits" required>
+                    <option value="0" selected {% if dietary_habits == '0' %}selected{% endif %}>Vegan</option>
+                    <option value="1" {% if dietary_habits == '1' %}selected{% endif %}>Paleo</option>
+                    <option value="2" {% if dietary_habits == '2' %}selected{% endif %}>Pescatarian</option>
+                    <option value="3" {% if dietary_habits == '3' %}selected{% endif %}>Gluten-Free</option>
+                    <option value="4" {% if dietary_habits == '4' %}selected{% endif %}>Vegetarian</option>
+                    <option value="5" {% if dietary_habits == '5' %}selected{% endif %}>Non-Vegetarian</option>
+                </select>
+            </div>
+
+            <!-- Stress Levels -->
+            <div class="form-group">
+                <label for="stress_level">Stress Levels</label>
+                <select id="stress_level" name="stress_level" required>
+                    <option value="0" selected {% if stress_level == '0' %}selected{% endif %}>Low Stress (Stress Level <= 3)</option>
+                    <option value="1" {% if stress_level == '1' %}selected{% endif %}>Moderate Stress (4 <= Stress Level <= 6)</option>
+                    <option value="2" {% if stress_level == '2' %}selected{% endif %}>High Stress (7 <= Stress Level <= 9)</option>
+                    <option value="3" {% if stress_level == '3' %}selected{% endif %}>Very High Stress (< 9 Stress Level)</option>
+                </select>
+            </div>
+
+            <!-- Blood Pressure Levels -->
+            <div class="form-group">
+                <label for="blood_pressure">Blood Pressure Levels</label>
+                <select id="blood_pressure" name="blood_pressure" required>
+                    <option value="0" selected {% if blood_pressure == '0' %}selected{% endif %}>Normal (systolic < 120 and diastolic < 80)</option>
+                    <option value="1" {% if blood_pressure == '1' %}selected{% endif %}>Elevated (120 <= systolic < 130 and diastolic < 80)</option>
+                    <option value="2" {% if blood_pressure == '2' %}selected{% endif %}>Hypertension Stage 1 (130 <= systolic < 140 or 80 <= diastolic < 90)</option>
+                    <option value="3" {% if blood_pressure == '3' %}selected{% endif %}>Hypertension Stage 2 (140 <= systolic < 180 or 90 <= diastolic < 120)</option>
+                    <option value="4" {% if blood_pressure == '4' %}selected{% endif %}>Hypertensive Crisis (systolic >= 180 or diastolic >= 120)</option>
+                </select>
+            </div>
+
+            <!-- HDL Cholesterol Levels -->
+            <div class="form-group">
+                <label for="hdl">HDL Cholesterol Levels</label>
+                <input type="number" id="hdl" name="hdl" value="{{ hdl | default(0)}}" required>
+            </div>
+
+            <!-- LDL Cholesterol Levels -->
+            <div class="form-group">
+                <label for="ldl">LDL Cholesterol Levels</label>
+                <input type="number" id="ldl" name="ldl" value="{{ ldl | default(0)}}" required>
+            </div>
+
+            <!-- Symptoms (Checkboxes) -->
+            <div class="form-group">
+                <label>Symptoms</label>
+                <div class="checkbox-group">
+                    <div style="flex: 1; margin-right: 10px;">
+                        <label><input type="checkbox" name="blurred_vision" value="1" {% if blurred_vision == '1' %}checked{% endif %}> Blurred Vision</label><br>
+                        <label><input type="checkbox" name="confusion" value="1" {% if confusion == '1' %}checked{% endif %}> Confusion</label><br>
+                        <label><input type="checkbox" name="difficulty_speaking" value="1" {% if difficulty_speaking == '1' %}checked{% endif %}> Difficulty Speaking</label><br>
+                        <label><input type="checkbox" name="dizziness" value="1" {% if dizziness == '1' %}checked{% endif %}> Dizziness</label><br>
+                        <label><input type="checkbox" name="headache" value="1" {% if headache == '1' %}checked{% endif %}> Headache</label>
+                    </div>
+                    <div>
+                        <label><input type="checkbox" name="loss_of_balance" value="1" {% if loss_of_balance == '1' %}checked{% endif %}> Loss of Balance</label><br>
+                        <label><input type="checkbox" name="numbness" value="1" {% if numbness == '1' %}checked{% endif %}> Numbness</label><br>
+                        <label><input type="checkbox" name="seizures" value="1" {% if seizures == '1' %}checked{% endif %}> Seizures</label><br>
+                        <label><input type="checkbox" name="severe_fatigue" value="1" {% if severe_fatigue == '1' %}checked{% endif %}> Severe Fatigue</label><br>
+                        <label><input type="checkbox" name="weakness" value="1" {% if weakness == '1' %}checked{% endif %}> Weakness</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit and Reset Buttons -->
+            <div class="form-group button-group">
+                <button type="button" class="form-button" onclick="resetForm()">Reset</button>
+                <input type="submit" value="Predict" class="form-button">
+            </div>
+        </form>
+
+        <!-- Display the prediction result, if any -->
+        {% if prediction %}
+        <div id="prediction-result" class="result">
+            {% if prediction %}
+                <h2>Prediction Result: {{ prediction }}</h2>
+            {% else %}
+                <h2>Prediction Result: N/A</h2>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+
+    
+</body>
+</html>

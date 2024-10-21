@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: 'Helvetica', sans-serif;
+    background-image: url(/static/images/pngtree-blue-genetic-dna-medical-background-windbackground-display-boardbackgroundpsdcolorful-image_77077.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    padding-top: 20px;
+}
+
+/* Styling for the top bar */
+.top-bar {
+    background-color: #006D5B; /* Dark background color for the top bar */
+    color: white; /* Text color for the title */
+    padding: 30px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 2px -2px gray; /* Adds a subtle shadow for depth */
+}
+
+.title-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.logo {
+    position: absolute;
+    left: 0;
+    height: 70px;
+    margin-left: 20px;
+}
+
+.title-container h1 {
+    margin: 0;
+    font-weight: bold;
+}
+
+.form-container {
+    margin-top: 100px; /* Adjust for top bar space */
+    padding: 15px;
+}
+
+/* Form container */
+.form-container {
+    background-color: #ececec;
+    color: black;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    width: 70%; 
+    border: 2px solid whitesmoke;
+}
+
+/* Header */
+.form-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Form group */
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+label {
+    width: 40%; /* Adjusted width for labels */
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+input[type="number"], select, input[type="text"] {
+    width: 55%; /* Adjusted width for inputs */
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Radio group styling */
+.radio-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Aligns radio buttons with labels */
+    gap: 20px; /* Spacing between radio buttons and labels */
+    margin-bottom: 10px;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+}
+
+input[type="radio"] {
+    margin-left: 5px; /* Space radio button to the right of the label */
+}
+
+.form-button {
+    width: 48%;  /* Ensure both buttons take up equal space */
+    padding: 10px;
+    font-size: 16px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.form-button:hover {
+    background-color: #e0e0e0;
+}
+
+/* Styles for form elements */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.checkbox-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkbox-group div {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.checkbox-group label {
+    display: block;
+    margin-bottom: 5px;
+    width: 200px; /* Adjust width to make labels fit in one line */
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+/* Prediction result styling */
+.result {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #006D5B;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 18px;
+}
